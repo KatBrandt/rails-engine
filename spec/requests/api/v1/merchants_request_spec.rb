@@ -35,4 +35,35 @@ describe "Merchants API" do
       expect(first_merchant[:attributes][:name]).to eq merchant1.name
     end
   end
+
+  describe 'GET /merchants/:id' do
+    it 'returns single merchant' do
+      merchants = create_list(:merchant, 6)
+      merchant1 = Merchant.first
+
+      get "/api/v1/merchants/#{merchant1.id}"
+
+      expect(response).to be_successful
+
+      merchant_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(merchant_data).to be_a Hash
+
+      merchant = merchant_data[:data]
+
+      expect(merchant).to have_key :id
+      expect(merchant[:id].to_i).to eq merchant1.id
+
+      expect(merchant).to have_key :type
+      expect(merchant[:type]).to eq "merchant"
+
+      expect(merchant).to have_key :attributes
+
+      expect(merchant).to_not have_key :name
+
+      expect(merchant[:attributes]).to be_a Hash
+      expect(merchant[:attributes]).to have_key :name
+      expect(merchant[:attributes][:name]).to eq merchant1.name
+    end
+  end
 end
