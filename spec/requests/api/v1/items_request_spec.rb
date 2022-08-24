@@ -24,7 +24,7 @@ describe 'Items API' do
 
       expect(item_1).to be_a Hash
       expect(item_1).to have_key :id
-      expect(item_1[:id]).to eq first_item.id
+      expect(item_1[:id].to_i).to eq first_item.id
 
       expect(item_1).to have_key :type
       expect(item_1[:type]).to eq "item"
