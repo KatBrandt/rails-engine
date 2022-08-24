@@ -81,5 +81,12 @@ describe 'Items API' do
       expect(attributes).to have_key :unit_price
       expect(attributes[:unit_price]).to eq item.unit_price
     end
+
+    it 'returns errors if item id not found' do
+      get '/api/v1/items/1'
+
+      expect(response).to_not be_successful
+      expect(response).to have_http_status 404
+    end
   end
 end
