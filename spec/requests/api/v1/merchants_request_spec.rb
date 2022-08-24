@@ -65,5 +65,12 @@ describe "Merchants API" do
       expect(merchant[:attributes]).to have_key :name
       expect(merchant[:attributes][:name]).to eq merchant1.name
     end
+
+    it 'returns 404 if no merchant id matches' do
+      get "/api/v1/merchants/1"
+
+      expect(response).to_not be_successful
+      expect(response).to have_http_status 404
+    end
   end
 end
