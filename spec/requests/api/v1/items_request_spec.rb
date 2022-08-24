@@ -80,6 +80,9 @@ describe 'Items API' do
 
       expect(attributes).to have_key :unit_price
       expect(attributes[:unit_price]).to eq item.unit_price
+
+      expect(attributes).to have_key :merchant_id
+      expect(attributes[:unit_price]).to eq item.mechant.id
     end
 
     it 'returns errors if item id not found' do
